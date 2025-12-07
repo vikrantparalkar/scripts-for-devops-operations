@@ -1,1 +1,1 @@
-# shell-scripts-for-devops-operations
+# This repository contains useful shell scripts created specifically for DevOps operations.
