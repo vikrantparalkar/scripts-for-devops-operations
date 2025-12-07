@@ -1,0 +1,22 @@
+#!/bin/bash
+set -x
+
+# Set the repository URL
+REPO_URL="https://<ACCESS-TOKEN>@dev.azure.com/<AZURE-DEVOPS-ORG-NAME>/voting-app/_git/voting-app"
+
+# Clone the git repository into the /tmp directory
+git clone "$REPO_URL" /tmp/temp_repo
+
+# Navigate into the cloned repository directory
+cd /tmp/temp_repo
+
+# Modify Kubernetes manifest image tag
+sed -i "s|image:.*|image: <ACR-REGISTRY-NAME>/$2:$3|g" k8s-specifications/$1-deployment.yaml
+
+# Commit and push changes
+git add .
+git commit -m "Update Kubernetes manifest"
+git push
+
+# Cleanup
+rm -rf /tmp/temp_repo
