@@ -1,0 +1,27 @@
+import boto3
+import datetime
+
+def listbuckets():
+    s3 = boto3.resource("s3")
+    for single in s3.buckets.all():
+        print(single.name)
+
+print(listbuckets())
+
+s3=boto3.resource("s3")
+
+def createBuk(s3,name,region):
+    s3.create_bucket(Bucket=name,CreateBucketConfiguration={
+        'LocationConstraint': region})
+    print("bucket created successfully")
+
+createBuk(s3,"vikrant-bucket","us-east-1")
+
+bucket_name="vikrant-bucket"
+file="/home/vicky/Desktop/practicepy/"
+
+def UploadBackup(s3,file,bucket_name,upload_file_name):
+    data = open(file,'rb') #s3 need data to be in binay format,so we open it and rb=read in binary
+    s3.Bucket(bucket_name).put_object(Key=datetime.date.today(),Body=data)  #here we added the binary file data to the 'Body' and kept the file name as the date and time
+
+UploadBackup(s3,bucket_name="new bucket")
