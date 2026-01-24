@@ -1,0 +1,18 @@
+import os
+import datetime
+import shutil
+
+#source is a path where we take backup of 
+#destination is the path where we take the backup 
+
+def backup(source,destination):
+    today = datetime.datetime.today()
+    destination_path = os.path.join(destination,f"backup_{today}")     #here the string is formated 'f' , so we can call varibles in the string
+    shutil.make_archive(destination_path,'gztar',source)
+
+source = '/home/vicky/Desktop/practicepy'
+destination =  '/home/vicky/Desktop/practicepy/backups'
+
+backup(source,destination)
+
+#you can schedule this script repeatedly with personal crontab 
