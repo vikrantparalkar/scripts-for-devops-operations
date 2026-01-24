@@ -1,0 +1,17 @@
+import subprocess
+#1]An module allows you to spawn new processes, connect to their input/output/error pipes, and obtain their return codes
+#2]A Python script to interact with the underlying operating system's command-line interface. 
+
+def terraform_handle(command):
+    process=subprocess.run(command,shell=True,check=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)  
+    #you can remove some parameters if don't want, like stdout-standard output; stderr-standard error
+    print(process.stdout.decode())
+
+path="/home/vicky/Desktop/practicepy/terraform"
+
+command=f"terraform -chdir={path} init"
+#command=f"terraform -chdir={path} plan"
+#command=f"terraform -chdir={path} validate"
+#command=f"terraform -chdir={path} apply -auto-approve"
+
+terraform_handle(command)
