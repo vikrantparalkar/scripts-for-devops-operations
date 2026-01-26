@@ -1,0 +1,20 @@
+import os 
+
+def sync_repo(repo_url,local_dir):
+    if not os.path.exists(local_dir):
+        os.system(f"git clone {repo_url} {local_dir}")
+        print(f"cloned {repo_url} into {local_dir}")
+    else:
+        os.chdir(local_dir)
+        os.system('git pull')
+        print(f"updated repository in {local_dir}")
+
+repositories=[
+    {"url":"https://github.com/vikrantparalkar/cicd-infrastructure-pipeline-aws","dir":r"/home/vicky/Desktop/github/"},
+    {"url":"https://github.com/vikrantparalkar/mern-on-k8s","dir":r"/home/vicky/Desktop/github/"},
+    {"url":"https://github.com/vikrantparalkar/ecommerce-on-aks","dir":r"/home/vicky/Desktop/github/"}
+    
+]
+
+for item in repositories:
+    sync_repo(item["url"],item["dir"])
