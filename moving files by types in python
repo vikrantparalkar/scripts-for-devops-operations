@@ -1,0 +1,13 @@
+import os 
+import shutil
+
+def move_files_by_type(source_dir,desti_dir,file_extension):
+    for data in os.listdir(source_dir):
+        if data.endswith(file_extension):
+            shutil.move(os.path.join(source_dir,data),os.path.join(desti_dir,data))
+
+
+
+move_files_by_type('.','Docs','.pdf')
+move_files_by_type('.','Png','.png')
+move_files_by_type('.','Txt','.txt')
