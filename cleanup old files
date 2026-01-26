@@ -1,0 +1,16 @@
+import os 
+import time
+
+def delete_old_files(directory,days_old):
+    timenow=time.time()
+
+    for file in os.listdir(directory):
+        filepath=os.path.join(directory,file)
+        if os.path.isfile(filepath):
+            file_age=timenow-os.path.getmtime(file)
+            if file_age > days_old * 86400:  #convert days to seconds
+                os.remove(filepath)
+                print(f'{file} is deleted')
+
+
+delete_old_files('','30')  #deletes files older than 30 days
