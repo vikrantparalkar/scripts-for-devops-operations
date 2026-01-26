@@ -1,0 +1,39 @@
+import requests
+from bs4 import BeautifulSoup
+
+def scrape_headline(url):
+    response=requests.get(url)
+    storing=BeautifulSoup(response.text, 'html.parser')  #response.text here '.text' will extract the text part from the response
+    #response.text is the HTML code of the webpage returned by requests.get() and html.parser turns messy HTML into a parse tree
+    headlines=storing.find_all('h2')  #here headlines is plural, used to store multiple data lines & and below we didn't use 's' that means its calling only single item OR you can just use the 'h' as well
+
+    for idx, headline in enumerate(headlines,1): #enumerate gives option to iterate items with no. (deafault=0)
+        print(f"{idx}:{headline.text.strip()}") # response.text here '.text' will extract the text part from the response
+
+
+
+scrape_headline('') #put any website url in the function
+    
+
+
+
+# you can use this in place of loop to store it directly in a file
+
+# with open("file.txt", "w", encoding="utf-8") as file:
+#     file.write("\n".join(h.text.strip() for h in headlines))    
+
+# ----or can use to store the headlines output directly--------------------------
+#     file.write(str(headlines))
+
+
+# ------------EXPLANATION-OF-NEW-CODE----------------------------------------
+# h.text.strip() for h in headlines
+# Goes through each item in headlines
+# Collects cleaned text
+
+# "\n".join(...)
+# Joins all the texts together
+# Adds a new line between each one
+
+# file.write(...)
+# Writes the final combined text into the file
