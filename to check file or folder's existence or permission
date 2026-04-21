@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [[-f  "/home/vicky/Music"]]; then
+        echo "exists";
+else echo "not exists"
+fi
+
+/*
+-f: for file existence check
+-d: for directory existence
+-e: for any existence
+-r/-w/-x: to check permission
+*/
