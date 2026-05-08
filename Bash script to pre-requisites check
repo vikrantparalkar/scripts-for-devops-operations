@@ -1,0 +1,64 @@
+#!/bin/bash
+
+echo "Checking prerequisites..."
+
+# -------------------------
+# Check Docker
+# -------------------------
+if command -v docker &> /dev/null       #"command -v docker" checks Does docker command exist? and "/dev/null" Hides output/errors.
+then
+    echo "Docker already installed"
+else
+    echo "Installing Docker..."
+
+    sudo apt update
+
+    sudo apt install -y \
+        ca-certificates \
+        curl \
+        gnupg
+
+    sudo install -m 0755 -d /etc/apt/keyrings
+
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
+    sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+    echo \
+      "deb [arch=$(dpkg --print-architecture) \
+      signed-by=/etc/apt/keyrings/docker.gpg] \
+      https://download.docker.com/linux/ubuntu \
+      $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+    sudo apt update
+
+    sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+    sudo usermod -aG docker $USER
+
+    echo "Docker installed successfully"
+fi
+
+# -------------------------
+# Check Make
+# -------------------------
+if command -v make &> /dev/null
+then
+    echo "Make already installed"
+else
+    echo "Installing Make..."
+    sudo apt install -y make
+fi
+
+# -------------------------
+# Check Python3
+# -------------------------
+if command -v python3 &> /dev/null
+then
+    echo "Python3 already installed"
+else
+    echo "Installing Python3..."
+    sudo apt install -y python3 python3-pip
+fi
+
+echo "All prerequisites are ready!"
